@@ -1,0 +1,71 @@
+# Comprehensive configuration for state-of-the-art radar deinterleaving
+
+data:
+  sampling_rate: 20e6
+  max_signals: null  # null for all signals
+  normalize: true
+  
+preprocessing:
+  pulse_detection:
+    method: "spectrogram"  # "threshold", "spectrogram", "matched_filter"
+    snr_threshold: 10  # dB
+    min_pulse_width: 1e-6  # seconds
+    max_pulse_width: 100e-6  # seconds
+    
+  feature_extraction:
+    include_snr: true
+    include_bandwidth: true
+    frequency_resolution: 1000  # Hz
+    
+model:
+  architecture: "transformer"  # "transformer", "lstm", "cnn"
+  
+  transformer:
+    d_model: 512
+    n_heads: 16
+    num_layers: 12
+    ff_dim: 2048
+    embedding_dim: 128
+    dropout: 0.1
+    
+  training:
+    batch_size: 32
+    learning_rate: 1e-4
+    epochs: 100
+    weight_decay: 1e-5
+    
+  loss:
+    contrastive_weight: 1.0
+    triplet_weight: 0.5
+    temporal_weight: 0.1
+    
+clustering:
+  method: "hierarchical"  # "hdbscan", "gmm", "hierarchical"
+  
+  hdbscan:
+    min_cluster_size_fraction: 0.01
+    min_samples_fraction: 0.25
+    cluster_selection_epsilon: 0.05
+    
+  hierarchical:
+    use_temporal_refinement: true
+    merge_threshold: 0.1
+    
+evaluation:
+  metrics:
+    - "silhouette_score"
+    - "calinski_harabasz_score" 
+    - "davies_bouldin_score"
+    - "pri_consistency"
+    - "frequency_separation"
+    
+  visualizations:
+    - "dimensionality_reduction"
+    - "temporal_analysis"
+    - "pri_analysis"
+    - "frequency_analysis"
+    
+  export_formats:
+    - "json"
+    - "csv"
+    - "pdf"
