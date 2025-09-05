@@ -105,7 +105,7 @@ Processing speed depends on dataset size:
 - `scripts/`: Python scripts for each pipeline stage
 - `utils/`: Utility modules for data processing and analysis
 - `model/`: Deep learning models for radar signal embedding (optional)
-- `data/`: Directory for storing input/output data
+- `data/`: Directory for storing input/output data [Download the data set link provided in the paper and store it here]
 - `results/`: Default output directory for clustering results
 
 ## License
